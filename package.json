@@ -7,10 +7,14 @@
     "calc": "src/calculator.js"
   },
   "scripts": {
-    "calc": "node src/calculator.js"
+    "calc": "node src/calculator.js",
+    "test": "jest --colors"
   },
   "engines": {
     "node": ">=14"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   },
   "license": "MIT"
 }
