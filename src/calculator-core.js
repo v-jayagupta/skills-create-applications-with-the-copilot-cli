@@ -40,4 +40,23 @@ function div(a, b) {
   return x / y;
 }
 
-module.exports = { add, sub, mul, div };
+function modulo(a, b) {
+  const x = toNumber(a);
+  const y = toNumber(b);
+  if (y === 0) throw new Error('division by zero');
+  return x % y;
+}
+
+function power(base, exponent) {
+  const b = toNumber(base);
+  const e = toNumber(exponent);
+  return Math.pow(b, e);
+}
+
+function squareRoot(n) {
+  const x = toNumber(n);
+  if (x < 0) throw new Error('square root of negative number');
+  return Math.sqrt(x);
+}
+
+module.exports = { add, sub, mul, div, modulo, power, squareRoot };

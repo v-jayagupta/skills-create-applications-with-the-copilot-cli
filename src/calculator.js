@@ -8,12 +8,18 @@
  *  - sub: subtraction (-)
  *  - mul: multiplication (×)
  *  - div: division (÷)
+ *  - mod: modulo (%)
+ *  - pow: exponentiation (power)
+ *  - sqrt: square root (√)
  *
  * Usage examples:
- *   node src/calculator.js add 2 3    -> 5
- *   node src/calculator.js sub 5 2    -> 3
- *   node src/calculator.js mul 4 6    -> 24
- *   node src/calculator.js div 10 2   -> 5
+ *   node src/calculator.js add 2 3      -> 5
+ *   node src/calculator.js sub 5 2      -> 3
+ *   node src/calculator.js mul 4 6      -> 24
+ *   node src/calculator.js div 10 2     -> 5
+ *   node src/calculator.js mod 10 3     -> 1
+ *   node src/calculator.js pow 2 3      -> 8
+ *   node src/calculator.js sqrt 9       -> 3
  *
  * Exit codes:
  *   0 - success
@@ -21,15 +27,15 @@
  *   3 - division by zero
  */
 
-const { add, sub, mul, div } = require('./calculator-core');
+const { add, sub, mul, div, modulo, power, squareRoot } = require('./calculator-core');
 const [,, op, aRaw, bRaw] = process.argv;
 
 function printUsageAndExit() {
-  console.error('Usage: node src/calculator.js <add|sub|mul|div> <num1> <num2>');
+  console.error('Usage: node src/calculator.js <add|sub|mul|div|mod|pow|sqrt> <num1> <num2?>');
   process.exit(2);
 }
 
-if (!op || !aRaw || !bRaw) {
+if (!op || !aRaw) {
   printUsageAndExit();
 }
 
@@ -37,23 +43,37 @@ try {
   let result;
   switch (op.toLowerCase()) {
     case 'add':
-      // addition
+      if (!bRaw) printUsageAndExit();
       result = add(aRaw, bRaw);
       break;
     case 'sub':
-      // subtraction
+      if (!bRaw) printUsageAndExit();
       result = sub(aRaw, bRaw);
       break;
     case 'mul':
-      // multiplication
+      if (!bRaw) printUsageAndExit();
       result = mul(aRaw, bRaw);
       break;
     case 'div':
-      // division
+      if (!bRaw) printUsageAndExit();
       result = div(aRaw, bRaw);
       break;
+    case 'mod':
+    case 'modulo':
+      if (!bRaw) printUsageAndExit();
+      result = modulo(aRaw, bRaw);
+      break;
+    case 'pow':
+    case 'power':
+      if (!bRaw) printUsageAndExit();
+      result = power(aRaw, bRaw);
+      break;
+    case 'sqrt':
+    case 'squareroot':
+      result = squareRoot(aRaw);
+      break;
     default:
-      console.error(`Error: unknown operation '${op}'. Supported: add, sub, mul, div`);
+      console.error(`Error: unknown operation '${op}'. Supported: add, sub, mul, div, mod, pow, sqrt`);
       printUsageAndExit();
   }
 
